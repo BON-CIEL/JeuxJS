@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Ma page d'accueil</title>
+    <script type="text/javascript" src="js/echo.js"></script>
+    <meta charset="UTF-8">
+    <title>TP CIEL WebSocket</title>
 </head>
 <body>
-  <header>
-    <h1>Bienvenue sur mon site</h1>
-  </header>
+    <div>
+        <label>Message à envoyer :</label>
+        <input type="text" id="messageEnvoi">
+        <input type="button" id="Envoyer" value="Envoyer">
+    </div>
+    <div>
+        <label>Message reçu :</label>
+        <input type="text" id="messageRecu" readonly>
+    </div>
 
-  <section>
-    <p>Voici le contenu principal de la page. Tu peux ajouter du texte, des images ou tout autre élément ici.</p>
-  </section>
+    <script>
+        const ws = new WebSocket('ws://' + location.host + '/echo');
 
-  <footer>
-    <p>&copy; 2025 MonSite. Tous droits réservés.</p>
-  </footer>
+        ws.onmessage = function(event) {
+            document.getElementById('messageRecu').value = event.data;
+        };
+
+        document.getElementById('Envoyer').onclick = function() {
+            const message = document.getElementById('messageEnvoi').value;
+            ws.send(message);
+        };
+    </script>
 </body>
 </html>

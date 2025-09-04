@@ -1,27 +1,47 @@
-'use strict';
+ï»¿'use strict';
 
-console.log('TP CIEL');
-
-const port = 80;
 const express = require('express');
-const exp = express();
+const expressWs = require('express-ws');
+const path = require('path');
+
+const app = express();
+expressWs(app); // Initialise WebSocket sur l'application Express
+
+const PORT = 80;
 
 // Servir les fichiers statiques depuis le dossier 'www'
-exp.use(express.static(__dirname + '/www'));
+app.use(express.static(path.join(__dirname, 'www')));
 
 // Route principale
-exp.get('/', function (req, res) {
-    console.log('Réponse à un client');
-    res.sendFile(__dirname + '/www/index.html');
+app.get('/', (req, res) => {
+    console.log('RÃ©ponse Ã  un client');
+    res.sendFile(path.join(__dirname, 'www', 'index.html'));
+});
+
+// WebSocket /echo
+app.ws('/echo', (ws, req) => {
+    const ip = req.socket.remoteAddress;
+    const port = req.socket.remotePort;
+
+    console.log(`Connexion WebSocket depuis ${ip}:${port}`);
+
+    ws.on('message', (message) => {
+        console.log(`Message reÃ§u de ${ip}:${port} : ${message}`);
+        ws.send(message); // renvoie le message au client
+    });
+
+    ws.on('close', () => {
+        console.log(`DÃ©connexion WebSocket de ${ip}:${port}`);
+    });
 });
 
 // Middleware de gestion des erreurs
-exp.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Erreur serveur express');
+    res.status(500).send('Erreur serveur Express');
 });
 
-// Démarrage du serveur
-exp.listen(port, function () {
-    console.log(`Serveur en écoute sur le port ${port}`);
+// DÃ©marrage du serveur
+app.listen(PORT, () => {
+    console.log(`Serveur Express + WebSocket en Ã©coute sur le port ${PORT}`);
 });
