@@ -104,7 +104,7 @@ class CQr {
         var messagePourLesClients = {
             joueurs: joueursSimple,
             question: this.question
-        }; 
+        };
         var payload = JSON.stringify(messagePourLesClients);
         this.joueurs.forEach(function each(joueur) {
             if (joueur.ws !== undefined && joueur.ws && joueur.ws.readyState === WebSocket.OPEN) {
