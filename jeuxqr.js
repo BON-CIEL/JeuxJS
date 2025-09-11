@@ -51,7 +51,7 @@ class CQr {
                 if (repStr.trim() !== '' && !Number.isNaN(parseInt(repStr.trim(), 10))) {
                     valeur = parseInt(repStr.trim(), 10);
                     aRepValide = true;
-                }
+                } 
 
                 if (nom) {
                     var indexjoueur = this.joueurs.findIndex(function (j) { return j.nom === nom; });
