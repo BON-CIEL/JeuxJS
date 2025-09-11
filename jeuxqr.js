@@ -136,7 +136,7 @@ class CQr {
         } catch (e) {
             console.log('Erreur envoi etat au client: ' + e.toString());
         }
-    }
+    } 
 
     Deconnecter(ws) {
         var indexjoueur = this.joueurs.findIndex(function (j) { return j.ws === ws; });
