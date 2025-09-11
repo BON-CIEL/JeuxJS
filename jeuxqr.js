@@ -115,7 +115,7 @@ class CQr {
                     if (error) {
                         console.log('ERREUR websocket broadcast : %s', error.toString());
                     }
-                });
+                }); 
             }
         });
     }
