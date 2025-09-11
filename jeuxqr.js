@@ -100,7 +100,7 @@ class CQr {
         this.joueurs.forEach(function each(joueur) {
             var connected = !!(joueur.ws && joueur.ws.readyState === WebSocket.OPEN);
             joueursSimple.push({ nom: joueur.nom, score: joueur.score, ws: connected });
-        });
+        }); 
         var messagePourLesClients = {
             joueurs: joueursSimple,
             question: this.question
