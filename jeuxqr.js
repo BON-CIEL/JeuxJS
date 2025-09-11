@@ -143,7 +143,7 @@ class CQr {
         if (indexjoueur != -1) {
             this.joueurs[indexjoueur].ws = undefined;
         }
-    }
+    } 
 }
 
 module.exports = CQr;
