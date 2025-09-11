@@ -7,7 +7,7 @@ class CQr {
         this.question = '?';
         this.bonneReponse = 0;
         this.joueurs = new Array();
-    }
+    } 
 
     GetRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
